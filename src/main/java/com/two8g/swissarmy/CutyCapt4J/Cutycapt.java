@@ -29,8 +29,7 @@ public class Cutycapt {
 			options = options.withOut(out);
 		}
 
-		options.verifyUrl();
-		options.verifyOutput();
+		options.verify();
 
 		String[] command = options.getCutyCaptCommand();
 		Process p = Runtime.getRuntime().exec(command);

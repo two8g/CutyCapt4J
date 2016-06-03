@@ -71,6 +71,13 @@ public class Options {
 		if (!executable.canExecute()) {
 			throw new IllegalArgumentException("Pandoc executable cannot be executed by current user");
 		}
+
+		try {
+			verifyUrl();
+			verifyOutput();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String[] getCutyCaptCommand() {
@@ -179,9 +186,8 @@ public class Options {
 
 	void verifyUrl()
 			throws IOException {
-		URL input = this.getUrl();
-		if ("file".equals(input.getProtocol())) {
-			File file = new File(input.getFile());
+		if ("file".equals(url.getProtocol())) {
+			File file = new File(url.getFile());
 			if (!file.canRead()) {
 				throw new IOException("Cannot read file: " + file);
 			}
@@ -190,23 +196,22 @@ public class Options {
 
 	void verifyOutput()
 			throws IOException {
-		File output = this.getOut();
 
-		if (output == null) {
+		if (out == null) {
 			throw new IOException("Output file must be specified");
 		}
 
-		output.getParentFile().mkdirs();
-		if (!output.getParentFile().exists()) {
-			throw new IOException("Output directory does not exist: " + output.getParentFile().getAbsolutePath());
+		out.getParentFile().mkdirs();
+		if (!out.getParentFile().exists()) {
+			throw new IOException("Output directory does not exist: " + out.getParentFile().getAbsolutePath());
 		}
 
-		if (!output.exists()) {
-			if (!output.getParentFile().canWrite()) {
-				throw new IOException("Cannot write to file: " + output.getAbsolutePath());
+		if (!out.exists()) {
+			if (!out.getParentFile().canWrite()) {
+				throw new IOException("Cannot write to file: " + out.getAbsolutePath());
 			}
-		} else if (!output.canWrite()) {
-			throw new IOException("Cannot write to file: " + output.getAbsolutePath());
+		} else if (!out.canWrite()) {
+			throw new IOException("Cannot write to file: " + out.getAbsolutePath());
 		}
 	}
 }

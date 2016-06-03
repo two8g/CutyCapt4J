@@ -26,8 +26,6 @@ public class XvfbCutycapt {
 		}
 
 		options.verify();
-		options.verifyUrl();
-		options.verifyOutput();
 
 		if (xvfbArgs != null && xvfbArgs.getExecutable() == null) {
 			xvfbArgs = xvfbArgs.withExecutable(xvfbFile);
