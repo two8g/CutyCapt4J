@@ -8,6 +8,7 @@ import lombok.experimental.Wither;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -176,4 +177,36 @@ public class Options {
 	}
 
 
+	void verifyUrl()
+			throws IOException {
+		URL input = this.getUrl();
+		if ("file".equals(input.getProtocol())) {
+			File file = new File(input.getFile());
+			if (!file.canRead()) {
+				throw new IOException("Cannot read file: " + file);
+			}
+		}
+	}
+
+	void verifyOutput()
+			throws IOException {
+		File output = this.getOut();
+
+		if (output == null) {
+			throw new IOException("Output file must be specified");
+		}
+
+		output.getParentFile().mkdirs();
+		if (!output.getParentFile().exists()) {
+			throw new IOException("Output directory does not exist: " + output.getParentFile().getAbsolutePath());
+		}
+
+		if (!output.exists()) {
+			if (!output.getParentFile().canWrite()) {
+				throw new IOException("Cannot write to file: " + output.getAbsolutePath());
+			}
+		} else if (!output.canWrite()) {
+			throw new IOException("Cannot write to file: " + output.getAbsolutePath());
+		}
+	}
 }

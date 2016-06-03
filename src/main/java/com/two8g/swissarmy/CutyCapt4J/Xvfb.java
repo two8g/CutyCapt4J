@@ -15,7 +15,6 @@ import java.io.IOException;
 @AllArgsConstructor
 public class Xvfb {
 	private File xvfb;
-	private File cutycapt;
 
 	public int run(File xvfb, XvfbArgs xvfbArgs) throws IOException {
 		if (xvfbArgs.getExecutable() == null && xvfb.exists()) {

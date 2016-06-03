@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by two8g on 16-6-3.
@@ -14,27 +13,29 @@ import java.net.URL;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cutycapt {
-	private File executable;
+public class XvfbCutycapt {
+	private File xvfbFile;
+	private File cutycaptFile;
 
-	public int run(Options options, URL url, File out) throws IOException {
+	public int run(Options options, XvfbArgs xvfbArgs) throws IOException {
+		if (options == null) {
+			throw new RuntimeException("curycapt options is illegal, can't be null.");
+		}
 		if (options.getExecutable() == null) {
-			options = options.withExecutable(executable);
-		}
-		if (url != null) {
-			options = options.withUrl(url);
+			options = options.withExecutable(cutycaptFile);
 		}
 
-		if (out != null) {
-			options = options.withOut(out);
-		}
-
+		options.verify();
 		options.verifyUrl();
 		options.verifyOutput();
 
+		if (xvfbArgs != null && xvfbArgs.getExecutable() == null) {
+			xvfbArgs = xvfbArgs.withExecutable(xvfbFile);
+		}
+		xvfbArgs = xvfbArgs.withCommands(options.getCutyCaptCommand());
+
 		String[] command = options.getCutyCaptCommand();
 		Process p = Runtime.getRuntime().exec(command);
-
 
 		try {
 			p.waitFor();
@@ -43,5 +44,4 @@ public class Cutycapt {
 			throw new IOException("An error occured while waiting for Cutycapt to exit", ie);
 		}
 	}
-
 }

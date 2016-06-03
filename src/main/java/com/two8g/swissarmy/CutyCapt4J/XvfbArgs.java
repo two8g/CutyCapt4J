@@ -36,6 +36,19 @@ public class XvfbArgs {
 	private File errorFile;
 	private File authFile;
 
+	public void verify() {
+		if (executable == null) {
+			throw new IllegalArgumentException("Pandoc executable must be specified");
+		}
+
+		if (!executable.exists()) {
+			throw new IllegalArgumentException("Pandoc executable does not exist at specified location: " + executable.getAbsolutePath());
+		}
+
+		if (!executable.canExecute()) {
+			throw new IllegalArgumentException("Pandoc executable cannot be executed by current user");
+		}
+	}
 
 	public String[] getXvfbCommand() {
 		List<String> commandSegments = new ArrayList();
