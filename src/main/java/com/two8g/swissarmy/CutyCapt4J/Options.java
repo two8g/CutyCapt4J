@@ -1,6 +1,7 @@
 package com.two8g.swissarmy.CutyCapt4J;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Wither;
@@ -18,6 +19,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Options {
 	@Wither
 	private File executable;
@@ -55,6 +57,20 @@ public class Options {
 	private Boolean zoomTextOnly;
 
 	private URL httpProxy;
+
+	public void verify() {
+		if (executable == null) {
+			throw new IllegalArgumentException("Pandoc executable must be specified");
+		}
+
+		if (!executable.exists()) {
+			throw new IllegalArgumentException("Pandoc executable does not exist at specified location: " + executable.getAbsolutePath());
+		}
+
+		if (!executable.canExecute()) {
+			throw new IllegalArgumentException("Pandoc executable cannot be executed by current user");
+		}
+	}
 
 	public String[] getCutyCaptCommand() {
 		List<String> commandSegments = new ArrayList();
