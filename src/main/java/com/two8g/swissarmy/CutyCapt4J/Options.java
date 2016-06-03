@@ -59,7 +59,7 @@ public class Options {
 
 	private URL httpProxy;
 
-	public void verify() {
+	public void verify() throws IOException {
 		if (executable == null) {
 			throw new IllegalArgumentException("Pandoc executable must be specified");
 		}
@@ -72,12 +72,8 @@ public class Options {
 			throw new IllegalArgumentException("Pandoc executable cannot be executed by current user");
 		}
 
-		try {
-			verifyUrl();
-			verifyOutput();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		verifyUrl();
+		verifyOutput();
 	}
 
 	public String[] getCutyCaptCommand() {
