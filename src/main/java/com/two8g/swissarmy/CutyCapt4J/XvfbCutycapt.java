@@ -32,7 +32,7 @@ public class XvfbCutycapt {
 		}
 		xvfbArgs = xvfbArgs.withCommands(options.getCutyCaptCommand());
 
-		String[] command = options.getCutyCaptCommand();
+		String[] command = xvfbArgs.getXvfbCommand();
 		Process p = Runtime.getRuntime().exec(command);
 
 		try {
