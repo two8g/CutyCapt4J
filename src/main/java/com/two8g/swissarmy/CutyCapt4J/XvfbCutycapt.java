@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 /**
  * Created by two8g on 16-6-3.
@@ -35,6 +37,22 @@ public class XvfbCutycapt {
 		String[] command = xvfbArgs.getXvfbCommand();
 		Process p = Runtime.getRuntime().exec(command);
 
+		try {
+			//读取标准输出流
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+			String line;
+			while ((line = bufferedReader.readLine()) != null) {
+				System.out.println(line);
+			}
+			//读取标准错误流
+			BufferedReader brError = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			String err;
+			while ((err = brError.readLine()) != null) {
+				System.err.println(err);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		try {
 			p.waitFor();
 			return p.exitValue();
