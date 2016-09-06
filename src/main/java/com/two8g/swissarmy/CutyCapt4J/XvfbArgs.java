@@ -21,81 +21,81 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class XvfbArgs {
-	@Wither
-	private File executable;
-	@Wither
-	private String[] commands;
+    @Wither
+    private File executable;
+    @Wither
+    private String[] commands;
 
-	private Boolean autoServerNum;
-	private String serverArgs;
+    private Boolean autoServerNum;
+    private String serverArgs;
 
-	private Integer serverNum;
-	private Boolean listenTcp;
-	private String xauthProtocol;
+    private Integer serverNum;
+    private Boolean listenTcp;
+    private String xauthProtocol;
 
-	private File errorFile;
-	private File authFile;
+    private File errorFile;
+    private File authFile;
 
-	public void verify() {
-		if (executable == null) {
-			throw new IllegalArgumentException("Pandoc executable must be specified");
-		}
+    public void verify() {
+        if (executable == null) {
+            throw new IllegalArgumentException("Pandoc executable must be specified");
+        }
 
-		if (!executable.exists()) {
-			throw new IllegalArgumentException("Pandoc executable does not exist at specified location: " + executable.getAbsolutePath());
-		}
+        if (!executable.exists()) {
+            throw new IllegalArgumentException("Pandoc executable does not exist at specified location: " + executable.getAbsolutePath());
+        }
 
-		if (!executable.canExecute()) {
-			throw new IllegalArgumentException("Pandoc executable cannot be executed by current user");
-		}
-	}
+        if (!executable.canExecute()) {
+            throw new IllegalArgumentException("Pandoc executable cannot be executed by current user");
+        }
+    }
 
-	public String[] getXvfbCommand() {
-		List<String> commandSegments = new ArrayList();
-		commandSegments.add(executable.getAbsolutePath());
+    public String[] getXvfbCommand() {
+        List<String> commandSegments = new ArrayList();
+        commandSegments.add(executable.getAbsolutePath());
 
-		if (autoServerNum != null && autoServerNum) {
-			commandSegments.add("-a");
-		}
+        if (autoServerNum != null && autoServerNum) {
+            commandSegments.add("-a");
+        }
 
-		if (errorFile != null) {
-			commandSegments.add("-e " + errorFile.getAbsolutePath());
-		}
+        if (errorFile != null) {
+            commandSegments.add("-e " + errorFile.getAbsolutePath());
+        }
 
-		if (authFile != null) {
-			commandSegments.add("-f " + authFile.getAbsolutePath());
-		}
+        if (authFile != null) {
+            commandSegments.add("-f " + authFile.getAbsolutePath());
+        }
 
-		if (serverNum != null) {
-			commandSegments.add("-n " + serverNum);
-		}
+        if (serverNum != null) {
+            commandSegments.add("-n " + serverNum);
+        }
 
-		if (listenTcp != null && listenTcp) {
-			commandSegments.add("-l");
-		}
+        if (listenTcp != null && listenTcp) {
+            commandSegments.add("-l");
+        }
 
-		if (xauthProtocol != null && !StringUtils.isBlank(xauthProtocol)) {
-			commandSegments.add("-p " + xauthProtocol);
-		}
+        if (xauthProtocol != null && !StringUtils.isBlank(xauthProtocol)) {
+            commandSegments.add("-p " + xauthProtocol);
+        }
 
-		if (serverArgs != null && !StringUtils.isBlank(serverArgs)) {
-			commandSegments.add("-s " + serverArgs);
-		}
+        if (serverArgs != null && !StringUtils.isBlank(serverArgs)) {
+            commandSegments.add("-s " + serverArgs);
+        }
 
-		Iterator<String> iter = commandSegments.iterator();
-		while (iter.hasNext()) {
-			if (StringUtils.isBlank(iter.next())) {
-				iter.remove();
-			}
-		}
+        Iterator<String> iter = commandSegments.iterator();
+        while (iter.hasNext()) {
+            if (StringUtils.isBlank(iter.next())) {
+                iter.remove();
+            }
+        }
 
-		String[] result = new String[commandSegments.size()];
-		commandSegments.toArray(result);
+        String[] result = new String[commandSegments.size()];
+        commandSegments.toArray(result);
 
-		if (commands != null && commands.length > 0) {
-			result = ArrayUtils.addAll(result, commands);
-		}
+        if (commands != null && commands.length > 0) {
+            result = ArrayUtils.addAll(result, commands);
+        }
 
-		return result;
-	}
+        return result;
+    }
 }

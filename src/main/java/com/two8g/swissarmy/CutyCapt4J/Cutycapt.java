@@ -15,32 +15,32 @@ import java.net.URL;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Cutycapt {
-	private File executable;
+    private File executable;
 
-	public int run(Options options, URL url, File out) throws IOException {
-		if (options.getExecutable() == null) {
-			options = options.withExecutable(executable);
-		}
-		if (url != null) {
-			options = options.withUrl(url);
-		}
+    public int run(Options options, URL url, File out) throws IOException {
+        if (options.getExecutable() == null) {
+            options = options.withExecutable(executable);
+        }
+        if (url != null) {
+            options = options.withUrl(url);
+        }
 
-		if (out != null) {
-			options = options.withOut(out);
-		}
+        if (out != null) {
+            options = options.withOut(out);
+        }
 
-		options.verify();
+        options.verify();
 
-		String[] command = options.getCutyCaptCommand();
-		Process p = Runtime.getRuntime().exec(command);
+        String[] command = options.getCutyCaptCommand();
+        Process p = Runtime.getRuntime().exec(command);
 
 
-		try {
-			p.waitFor();
-			return p.exitValue();
-		} catch (InterruptedException ie) {
-			throw new IOException("An error occured while waiting for Cutycapt to exit", ie);
-		}
-	}
+        try {
+            p.waitFor();
+            return p.exitValue();
+        } catch (InterruptedException ie) {
+            throw new IOException("An error occured while waiting for Cutycapt to exit", ie);
+        }
+    }
 
 }
