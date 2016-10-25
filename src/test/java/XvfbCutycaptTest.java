@@ -1,6 +1,6 @@
-import com.two8g.swissarmy.CutyCapt4J.Options;
-import com.two8g.swissarmy.CutyCapt4J.XvfbArgs;
-import com.two8g.swissarmy.CutyCapt4J.XvfbCutycapt;
+import two8g.swissarmy.CutyCapt4J.Options;
+import two8g.swissarmy.CutyCapt4J.XvfbArgs;
+import two8g.swissarmy.CutyCapt4J.XvfbCutycapt;
 import org.junit.Before;
 import org.junit.Test;
 

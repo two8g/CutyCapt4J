@@ -1,6 +1,6 @@
-import com.two8g.swissarmy.CutyCapt4J.Cutycapt;
-import com.two8g.swissarmy.CutyCapt4J.Format;
-import com.two8g.swissarmy.CutyCapt4J.Options;
+import two8g.swissarmy.CutyCapt4J.Cutycapt;
+import two8g.swissarmy.CutyCapt4J.Format;
+import two8g.swissarmy.CutyCapt4J.Options;
 import org.junit.Test;
 
 import java.io.File;

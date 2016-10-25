@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.two8g.swissarmy</groupId>
+	<groupId>two8g.swissarmy</groupId>
 	<artifactId>CutyCapt4J</artifactId>
-	<version>0.1</version>
+	<version>1.0</version>
 
 	<properties>
 		<file_encoding>UTF-8</file_encoding>

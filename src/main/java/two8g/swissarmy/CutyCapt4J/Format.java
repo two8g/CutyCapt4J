@@ -1,4 +1,4 @@
-package com.two8g.swissarmy.CutyCapt4J;
+package two8g.swissarmy.CutyCapt4J;
 
 /**
  * Created by two8g on 16-5-31.

@@ -1,4 +1,4 @@
-package com.two8g.swissarmy.CutyCapt4J;
+package two8g.swissarmy.CutyCapt4J;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
